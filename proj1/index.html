@@ -34,9 +34,25 @@
 			Task 2
 		</h3>
 		<p>
-			1. Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.
+			<h3>1. Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.</h3>
+			To supersample, we make the same nested loop through the pixels in the bounding rectange of the triangle.
+			Next, we derived the formula that for sample rate k, the supersample coordinates in both directions are (x or y) + 1/(2*sqrt(k)), (x or y) + 3/(2*sqrt(k)), etc.
+			For each supersample, we ran the three-line test (with winding order considered) and saved each supersample result in sample_buffer, which
+			we expanded from size width*height to sample_rate*width*height to fit every supersample. For example, in a 4x4 supersample of sampling rate 16, the
+			supersamples of point (0,0) are held at indices 0-15 in the sample buffer, and the supersamples of point (1,0) are held at indices 16-31.
+			Given point (x,y) and supersample i from 0 to sample_rate - 1, we can get the corresponding supersample from sample_buffer with index y * width * sample_rate + x * sample_rate + i.
+			To fix the pipeline, we downsample to the width * height size rgb_framebuffer_target by taking the average color at each supersample to determine the color for the corresponding pixel.
+			We also needed to resize the sample buffer to sample_rate*width*height to fit our supersamples, which meant changes in RasterizerImp,
+			fill_pixel (to fit the new buffer and prevent supersampling by setting every supersample to the color of the pixel without actually supersampling),
+			rasterize_triangle, set_sample_rate, and resolve_to_framebuffer.  Supersampling is useful because it helps antialias the triangles by removing the sharp edges, because
+			pixels where the edges are split on either side of the line won't be solid, and will instead be a weighted average of the triangle and background colors.
 			<br />
-			2. Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.
+			<h3>2. Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.</h3>
+			<img src="task2basic41.png" width="30%" />
+			<img src="task2basic44.png" width="30%" />
+			<img src="task2basic416.png" width="30%" />
+			<br />
+			These results are observed because a supersample of 1 can only be the triangle color, and a supersample of 16 has more colors available than a supersample of 4 because more samples are being averaged together so there are more possible averages and therefore more possible corresponding colors.
 			<br />
 		</p>
 		<h3>
