@@ -2,6 +2,76 @@
 	<head>
 	</head>
 	<body>
-		Project 1 here
+
+		<h1>CS184 Project 1</h1>
+		<h2>Max Lord and Eugenia Gavrilova</h2>
+		<h3>
+			Task 1
+		</h3>
+		<p>
+			1. Walk through how you rasterize triangles in your own words.
+			<br />
+			2. Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle.
+			<br />
+			3. Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.
+			<br />
+		</p>
+		<h3>
+			Task 2
+		</h3>
+		<p>
+			1. Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.
+			<br />
+			2. Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.
+			<br />
+		</p>
+		<h3>
+			Task 3
+		</h3>
+		<p>
+			1. reate an updated version of svg/transforms/robot.svg with cubeman doing something more interesting, like waving or running. Feel free to change his colors or proportions to suit your creativity. Save your svg file as my_robot.svg in your docs/ directory and show a png screenshot of your rendered drawing in your write-up. Explain what you were trying to do with cubeman in words.
+			<br />
+		</p>
+		<h3>
+			Task 4
+		</h3>
+		<p>
+			1. Explain barycentric coordinates in your own words and use an image to aid you in your explanation. One idea is to use a svg file that plots a single triangle with one red, one green, and one blue vertex, which should produce a smoothly blended color triangle.
+			<br />
+			2. Show a png screenshot of svg/basic/test7.svg with default viewing parameters and sample rate 1. If you make any additional images with color gradients, include them.
+			<br />
+		</p>
+		<h3>
+			Task 5
+		</h3>
+		<p>
+			1. Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. Briefly discuss the two different pixel sampling methods, nearest and bilinear.
+			<br />
+			2. Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.
+			<br />
+			3. Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.
+			<br />
+		</p>
+		<h3>
+			Task 6
+		</h3>
+		<p>
+			1. Explain level sampling in your own words and describe how you implemented it for texture mapping.
+			<br />
+			2. You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.
+			<br />
+			3. Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR.
+			<br />
+			To use your own png, make a copy of one of the existing svg files in svg/texmap/ (or create your own modelled after one of the provided svg files). Then, near the top of the file, change the texture filename to point to your own png. From there, you can run ./draw and pass in that svg file to render it and then save a screenshot of your results.
+			<br />
+			Note: Choose a png that showcases the different sampling effects well. You may also want to zoom in/out, use the pixel inspector, etc. to demonstrate the differences.
+			<br />
+		</p>
+		<h3>
+			Website Link
+		</h3>
+		<p>
+			<a href="https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/proj1/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/proj1/index.html</a>
+		</p>
 	</body>
 </html>
