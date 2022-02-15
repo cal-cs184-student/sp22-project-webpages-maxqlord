@@ -3,17 +3,31 @@
 	</head>
 	<body>
 
-		<h1>CS184 Project 1</h1>
-		<h2>Max Lord and Eugenia Gavrilova</h2>
-		<h3>
+		<h1>CS184 Project 1 - Max Lord and Eugenia Gavrilova</h1>
+		<h2>
 			Task 1
-		</h3>
+		</h2>
 		<p>
-			1. Walk through how you rasterize triangles in your own words.
+			<h3>1. Walk through how you rasterize triangles in your own words.</h3>
+			First, we define the bounding box of the triangle as the smallest rectangle that completely encloses the triangle.
+			For each pixel (x,y) in this bounding box, we check whether the center of the pixel at coordinate (x + .5, y + .5) fulfills the point-in-triangle three-line test,
+			which we determine by plugging (x + .5, y + .5) into an equation which will return 0 if the point is on the edge, < 0 if the point is outside the edge, or > 0 if the point is inside the edge.
+			If the point is inside the edge (< 0) for all three lines, we determine the point is inside the triangle.  Also, we must factor in winding order,
+			which we can consider by also determining the point is in the triangle if the point is "outside the edge" (> 0)
+			for all three lines, which can only be the case if the point is in the triangle but has opposite winding order.
+			For each pixel, if we have determined it is inside the triangle by our three-line test, we color the pixel with the triangle color, and if not, we don't color the point with the triangle color.
 			<br />
-			2. Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle.
+
+			<h3>2. Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle.</h3>
+			We loop the x pixel from left x bound to right x bound and the y pixel from top y bound to bottom y bound,
+			where left x bound is defined as the floor of the minimum of all the x values, so that must bound the left side of the triangle.
+			The right x bound is defined as the ceiling of the maximum of all the x values, so that must bound the right side of the triangle.
+			The top y bound is defined as the floor of the minimum of all the y values, so that must bound the top of the triangle.
+			The bottom y bound is defined as the ceiling of the maximum of all the y values, so that must bound the bottom of the triangle.
+			Since we loop between these bounds, no other samples are considered, so it is no worse (and is equal to) one that checks each sample within the bounding box of the triangle.
 			<br />
-			3. Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.
+			<h3>3. Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.</h3>
+			<img src="task1basic4.png" width="50%" />
 			<br />
 		</p>
 		<h3>
