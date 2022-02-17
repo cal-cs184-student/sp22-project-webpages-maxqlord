@@ -90,26 +90,105 @@
 			Task 5
 		</h3>
 		<p>
+			<h3>
 			1. Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. Briefly discuss the two different pixel sampling methods, nearest and bilinear.
+			</h3>
+			Pixel sampling is a process by which we can map coordinates bound by an image space to a different set of coordinates bound by a texture space,
+			thus allowing us to overlay corresponding texels (pixel values in the texture file) onto an image and give it the appearance of texture.
+			Following a similar initial process to task 1, we implemented this by iterating over every pixel in a bounded triangle;
+			then if the pixel is within the triangle, we calculate the alpha, beta, and gamma values of its barycentric coordinates
+			and multiply them by the vertices of the corresponding triangle in texture space to locate and extract the texel, then finally fill it in in image space.
 			<br />
-			2. Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.
+			Using the nearest pixel sampling method, we find the nearest pixel in texture space to our calculated barycentric coordinates by
+			rounding the (u, v) values, clamping them if they go out of bounds, and return the color of that pixel. Using the bilinear pixel sampling method,
+			we find the four nearest pixels in texture space by using all combinations of the floor and ceiling of (u, v) and clamping as described in the
+			nearest-pixel method; however, we do two linear interpolations of the pixel colors, first pairing the two sets with the same u values, then interpolating the results once again.
+			<h3>
+			2. Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where
+			bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at
+			1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.
+			</h3>
+			<br /> <br /> <br />
+			Nearest 1 Sample/Pixel:
 			<br />
+			<img src="nearest_1.png" width="50%" />
+			<br />
+			Nearest 16 Samples/Pixel:
+			<br />
+			<img src="nearest_16.png" width="50%" />
+			<br />
+			Bilinear 1 Sample/Pixel:
+			<br />
+			<img src="bilinear_1.png" width="50%" />
+			<br />
+			Bilinear 16 Samples/Pixel:
+			<br />
+			<img src="bilinear_16.png" width="50%" />
+			<br />
+			<h3>
 			3. Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.
+			</h3>
+			The difference between Bilinear 1 Sample/Pixel and Nearest 1 Sample/Pixel is quite large, as Nearest 1 looks very choppy
+			and has many pixels that change color drastically compared to nearby pixels. Nearest 16 Samples/Pixel ameliorates this issue to an extent, but
+			only is about as good as Bilinear 1 Sample/Pixel, while taking significantly more computing power. Bilinear 16 Samples/Pixel is the best, with all
+			almost all color changes having smooth gradient of pixel colors instead of sharp changes like Nearest 1 Sample/Pixel.  The largest difference will be in
+			situations where the color/texture changes quickly across just a few pixels, because bilinear will be able to give a small weight to the color of nearby pixels
+			which makes the color/texture change between two neighboring pixels less sudden.
 			<br />
 		</p>
-		<h3>
+		<h2>
 			Task 6
-		</h3>
+		</h2>
 		<p>
+			<h3>
 			1. Explain level sampling in your own words and describe how you implemented it for texture mapping.
+			</h3>
+			Level sampling is a process by which we can sample from different “levels” of resolution in a texture space
+			depending on the proximity of objects to the image plane. We do this by calculating difference vectors that
+			reflect the extent of change in color between neighboring pixels, which allows us to determine the nearest
+			appropriate mipmap level. These difference vectors are plugged into the formula from lecture 5, slide 65,
+			to give us the nearest appropriate mipmap level to pixel sample from.
+
+			In our implementation, we support 3 different types of level sampling, each evaluated per-pixel. The first, L_ZERO,
+			samples from the zeroth level of the mipmap, which corresponds to the highest resolution texture image.
+			L_NEAREST uses the aforementioned formula to determine which mipmap level we should sample texture from for
+			a given image pixel and then applies it to the image space. The final, L_LINEAR, samples from the nearest mipmap
+			level as well as the one above it (so the texture image with double the “nearest” resolution),
+			interpolates the two pixel color values and returns the result.
 			<br />
-			2. You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.
+			<h3>
+			2. You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel.
+			Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.
+			</h3>
+			Pixel sampling is fastest, because it just requires a simple matching of pixels. Level sampling is slower, but provides the benefit of
+			variable levels of detail, prioritizing certain spaces in the image for detail over others. Supersampling is also slower, because it needs to
+			take several samples (with all of the accompanying calculations) per pixel.
+
+			In terms of memory, adding more samples per pixel has the highest cost, because we are storing several data points for every pixel.
+			Level sampling is also more expensive than pixel sampling, because it stores multiple mipmap levels.
+
+			Supersampling and level sampling have similar antialiasing power, but supersampling is more expensive, although both supersampling and level sampling
+			are superior to pixel sampling in terms of antialiasing.
 			<br />
-			3. Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR.
+			<h3>
+			3. Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST,
+			L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR. </h3>
+			<br /><br />
+			L_ZERO and P_NEAREST:
 			<br />
-			To use your own png, make a copy of one of the existing svg files in svg/texmap/ (or create your own modelled after one of the provided svg files). Then, near the top of the file, change the texture filename to point to your own png. From there, you can run ./draw and pass in that svg file to render it and then save a screenshot of your results.
+			<img src="zero_nearest.png" width="50%" />
 			<br />
-			Note: Choose a png that showcases the different sampling effects well. You may also want to zoom in/out, use the pixel inspector, etc. to demonstrate the differences.
+			L_ZERO and P_LINEAR:
+			<br />
+			<img src="zero_linear.png" width="50%" />
+			<br />
+			L_NEAREST and P_NEAREST:
+			<br />
+			<img src="nearest_nearest.png" width="50%" />
+			<br />
+			L_NEAREST and P_LINEAR:
+			<br />
+			<img src="nearest_linear.png" width="50%" />
 			<br />
 		</p>
 		<h3>
