@@ -2,6 +2,124 @@
 	<head>
 	</head>
 	<body>
-		Project 2 here
+
+		<h1>CS184 Project 2 - Max Lord and Eugenia Gavrilova</h1>
+		<h2>
+			Overview
+		</h2>
+		<p>
+			<h3>1. Give a high-level overview of what you have implemented in this assignment. Think about what you have built as a whole. Share your thoughts on what interesting things you have learned from completing this assignment.</h3>
+
+			<br />
+
+		</p>
+		<h2>
+			Task 1
+		</h2>
+		<p>
+			<h3>1. Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.</h3>
+
+			<br />
+			<h3>2. Take a look at the provided .bzc files and create your own Bezier curve with 6 control points of your choosing. Use this Bezier curve for your screenshots below.</h3>
+
+			<br />
+			<h3>3. Show screenshots of each step / level of the evaluation from the original control points down to the final evaluated point.</h3>
+
+			<br />
+			<h3>4. Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter t via mouse scrolling.</h3>
+
+			<br />
+
+		</p>
+		<h2>
+			Task 2
+		</h2>
+		<p>
+			<h3>1. Briefly explain how de Casteljau algorithm extends to Bezier surfaces and how you implemented it in order to evaluate Bezier surfaces.</h3>
+
+			<br />
+			<h3>2. Show a screenshot of bez/teapot.bez evaluated by your implementation.</h3>
+
+			<br />
+		</p>
+		<h2>
+			Task 3
+		</h2>
+		<p>
+			<h3>1. Briefly explain how you implemented the area-weighted vertex normals.</h3>
+			To calculate the area-weighted normal, we first note that just by calculating the cross product of two vectors representing two edges of the triangle face, that cross product will implicitly include the area.
+			So, we start at a given half edge, and get each vertex of that half-edge's face, and calculate a vector difference between two pairs of vertices to get two vectors representing two edges.
+			Next, we take the cross product of those two vectors, negate it so the resulting vector points out of the mesh, and add it to a running vector sum.
+			Finally, we go to the next face by navigating to the half edge's twin's next half edge, and repeat the process until we are back at the original half edge.
+			<br />
+			<h3>2. Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals.</h3>
+			<img src="no_q_area_normal.png" width="40%" />
+			<img src="q_area_normal.png" width="40%" />
+		</p>
+		<h2>
+			Task 4
+		</h2>
+		<p>
+			<h3>
+				1. Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
+			</h3>
+			<br />
+
+			<h3>
+				2. Show screenshots of the teapot before and after some edge flips.
+			</h3>
+			<br />
+
+			<h3>
+				3. Write about your eventful debugging journey, if you have experienced one.
+			</h3>
+			<br />
+
+		</p>
+		<h2>
+			Task 5
+		</h2>
+		<p>
+
+			<h3>
+			1. Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.
+			</h3>
+
+			<br />
+
+			<h3>2. Show screenshots of a mesh before and after some edge splits. </h3>
+			<br />
+			<h3>3. Show screenshots of a mesh before and after a combination of both edge splits and edge flips.</h3>
+			<br />
+			<h3>4. Write about your eventful debugging journey, if you have experienced one.</h3>
+			<br />
+
+		</p>
+		<h2>
+			Task 6
+		</h2>
+		<p>
+
+			<h3>
+			1. Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
+			</h3>
+			<br />
+
+			<h3>
+			2. Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
+			</h3>
+			<br />
+
+			<h3> 3. Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions.
+				Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur.
+				Also explain how your pre-processing helps alleviate the effects.</h3>
+			<br />
+		</p>
+		<h3>
+			Website Link
+		</h3>
+		<p>
+			<a href="https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/proj2/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/proj2/index.html</a>
+		</p>
 	</body>
 </html>
