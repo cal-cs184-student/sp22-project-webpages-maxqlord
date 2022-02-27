@@ -64,15 +64,23 @@
 				1. Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
 			</h3>
 			<br />
-
+				First, we set each of the vertices' half-edges to their new half-edge based on the lecture diagram, then did the same for the faces, although they were likely already set correctly.
+				Next, we saved the values of existing half-edges so when we changed the path of half-edges later we could be sure we were still referencing the correct half-edges after the changes.
+				Next, we changed the next() pointers of the half-edges that needed it as well as the face() pointers if necessary.
+				Finally, for the half-edges splitting the triangles that flipped orientation, we set the half-edges' next(), twin(), vertex(), edge(), and face() pointers.
+				The only notable implementation trick was to save references to half-edge pointers so that we didn't lose track of which half-edges were which after changing next() pointers.
 			<h3>
 				2. Show screenshots of the teapot before and after some edge flips.
 			</h3>
+			<img src="pre_flip.png" width="40%" />
+			<img src="post_flip.png" width="40%" />
 			<br />
-
 			<h3>
 				3. Write about your eventful debugging journey, if you have experienced one.
 			</h3>
+			The only major bug that arose ended up being due to setting the middle half-edges' next() and twin() pointers to incorrect values.
+			This happened because we thought we were referencing edge1->next, for example, but a few lines previously we had set edge1->next to be a different edge,
+			so the half-edges we thought we were referencing were not the actual half-edges being referenced.  To fix this, we saved the initial half-edge pointer values so we didn't lose track of them after changing next() pointers.
 			<br />
 
 		</p>
@@ -84,14 +92,25 @@
 			<h3>
 			1. Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.
 			</h3>
-
+			First, we created each of the new half-edges and saved pointers to the existing ones but did not set the half-edges' pointers yet.
+			Next, we did the same with edges and faces, saving pointers of existing edges and faces and creating the necessary new ones.  However, we assigned the
+			corresponding half-edge to the new edges and faces as soon as they were created because all of the half-edges were already available.
+			Next, we did the same procedure with vertices, plus a calculation of the average position of the two edge vertices to set our new vertex's position.
+			Finally, now having references to every pointer (next, twin, vertex, edge, face), we set each half-edge's pointers to their corresponding next, twin, vertex, face, and edge.
+			We knew what the correct pointer assignments were by making a diagram showing an edge split and noting every single pointer that needed to be changed and what it needed to be changed to.
 			<br />
-
 			<h3>2. Show screenshots of a mesh before and after some edge splits. </h3>
+			<img src="pre_split.png" width="40%" />
+			<img src="split.png" width="40%" />
 			<br />
 			<h3>3. Show screenshots of a mesh before and after a combination of both edge splits and edge flips.</h3>
+			<img src="pre_splitandflip.png" width="40%" />
+			<img src="splitandflip.png" width="40%" />
 			<br />
 			<h3>4. Write about your eventful debugging journey, if you have experienced one.</h3>
+			The code worked on the first run, thanks to making a complete diagram of the split and tracking every pointer that needed to be updated.
+			Also, we learned a lesson from the flip operation, which is that it was best to save pointers at the start before changing
+			next, twin, vertex, edge, and face pointers in order not to lose certain pointers and always be referencing the correct item.
 			<br />
 
 		</p>
