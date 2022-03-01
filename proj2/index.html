@@ -21,13 +21,18 @@
 
 			<br />
 			<h3>2. Take a look at the provided .bzc files and create your own Bezier curve with 6 control points of your choosing. Use this Bezier curve for your screenshots below.</h3>
-
+			<img src="q2.png" width="40%" />
 			<br />
 			<h3>3. Show screenshots of each step / level of the evaluation from the original control points down to the final evaluated point.</h3>
-
+			<img src="q3-1.png" width="30%" />
+			<img src="q3-2.png" width="30%" />
+			<img src="q3-3.png" width="30%" />
+			<img src="q3-4.png" width="30%" />
+			<img src="q3-5.png" width="30%" />
+			<img src="q3-curve.png" width="30%" />
 			<br />
 			<h3>4. Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter t via mouse scrolling.</h3>
-
+			<img src="q4.png" width="40%" />
 			<br />
 
 		</p>
@@ -39,7 +44,7 @@
 
 			<br />
 			<h3>2. Show a screenshot of bez/teapot.bez evaluated by your implementation.</h3>
-
+			<img src="task2teapot.png" width="40%" />
 			<br />
 		</p>
 		<h2>
@@ -122,16 +127,47 @@
 			<h3>
 			1. Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
 			</h3>
+			First, we looped through the vertices to compute their post-subdivision coordinates and marked each vertex as old. Next, we looped through each edge
+			and calculated the coordinates for the new vertex that would be added on the midpoint of that edge, and also set all edges to old in the process.
+			Next, we looped through each old edge and split it, marking the resulting new vertex as new and setting its new position to the corresponding edge's saved new position.
+			Additionally, to prevent infinite loops, as soon as we see an edge marked as new, we break the loop and stop splitting, which we can do because new edges are inserted after old edges.
+			Also, we edited the split function so the last edge added that is an extension of the original edge is marked as old, so we don't flip it later.
+			Next, we looped through all the edges and if the edge was new and one of its two vertices was new and the other was old, we flipped that edge.
+			Finally, we updated the vertices with their new positions and marked them all as old.
 			<br />
-
 			<h3>
 			2. Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
 			</h3>
+			Sharp corners and edges get rounded, as we can see in the icosahedron.  If we pre-split edges around the corners and edges we want to keep,
+			the subdivision will need to run more times in that area to smooth it compared to areas of the mesh that aren't pre-split.
+			<br /><br />
+			<img src="ico1.png" width="30%" />
+			<img src="ico2.png" width="30%" />
+			<img src="ico3.png" width="30%" />
+			<img src="ico4.png" width="30%" />
+			<img src="ico5.png" width="30%" />
 			<br />
 
 			<h3> 3. Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions.
 				Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur.
 				Also explain how your pre-processing helps alleviate the effects.</h3>
+				We can preprocess the cube by splitting each diagonal edge so we have a cross in the middle. By making the mesh symmetrical when it starts, we make sure it will subdivide symmetrically.
+				<br />
+				<br  />
+				<h4>Cube with no pre-splitting diagonal edge:</h4>
+				<br />
+				<img src="cube1.png" width="20%" />
+				<img src="cube2.png" width="20%" />
+				<img src="cube3.png" width="20%" />
+				<img src="cube4.png" width="20%" />
+				<br />
+				<br />
+				<h4>Cube with pre-splitting diagonal edge:</h4>
+				<br />
+				<img src="sharpcube1.png" width="20%" />
+				<img src="sharpcube2.png" width="20%" />
+				<img src="sharpcube3.png" width="20%" />
+				<img src="sharpcube4.png" width="20%" />
 			<br />
 		</p>
 		<h3>
