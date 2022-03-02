@@ -9,7 +9,8 @@
 		</h2>
 		<p>
 			<h3>1. Give a high-level overview of what you have implemented in this assignment. Think about what you have built as a whole. Share your thoughts on what interesting things you have learned from completing this assignment.</h3>
-
+				We have built a program that is capable of both representing and modifying Bezier curves/surfaces and triangle meshes, as well as a way (loop subdivision) to easily scale up and down the precision of a particular mesh.
+				Using loop subdivision to control the precision of a mesh via increasing the number of triangles in the mesh and the ability to control Bezier curves with control points were both particularly interesting.
 			<br />
 
 		</p>
@@ -18,7 +19,10 @@
 		</h2>
 		<p>
 			<h3>1. Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.</h3>
-
+				De Casteljau’s algorithm operates on a set of line segments and a parameter t between 0 and 1 by calculating the coordinates of midsections on each segment such that each segment is split into lengths of ratio t:(1-t).
+				It then recurses on the new line segments defined by these dividing coordinates until it outputs one point that exists on the Bezier curve, tangent to the original line segment.
+				By implementing a function that evaluates one set of dividing coordinates at a time (on one sequence of line segments, either the original set or the one output by the previous iteration), we can call this function until just one point on the curve is output.
+				Thus we can evaluate and draw Bezier curves by iterating on values of t within [0, 1] to get the complete curve.
 			<br />
 			<h3>2. Take a look at the provided .bzc files and create your own Bezier curve with 6 control points of your choosing. Use this Bezier curve for your screenshots below.</h3>
 			<img src="q2.png" width="40%" />
@@ -41,7 +45,10 @@
 		</h2>
 		<p>
 			<h3>1. Briefly explain how de Casteljau algorithm extends to Bezier surfaces and how you implemented it in order to evaluate Bezier surfaces.</h3>
-
+				Because Bezier surfaces introduce an additional dimension to the original de Casteljau's algorithm, we can extend the algorithm by evaluating the curve
+				in one dimension at a time using two parameters u and v in place of t—we use the first parameter to find points along the curve in the first dimension and the second to find the final point using this new set of points from the first parameter,
+				thus giving us a 3D point on the surface patch. We extended our solution for task 1 to surfaces by implementing a method that evaluates first along one axis using u,
+				then runs standard 1D de Casteljau’s on the intermediate set of points.
 			<br />
 			<h3>2. Show a screenshot of bez/teapot.bez evaluated by your implementation.</h3>
 			<img src="task2teapot.png" width="40%" />
