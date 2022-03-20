@@ -17,13 +17,26 @@
 		</h2>
 		<p>
 			<h3>1. Walk through the ray generation and primitive intersection parts of the rendering pipeline.</h3>
+				For ray generation, we first convert hFov and vFov to radians, then set the x,y,z of the ray in camera space with the given formula.
+				Next, we converted the x,y,z to world coordinates by multiplying to the camera-to-world matrix. Finally, we defined
+				the ray with the camera position and the unit vector representing our world coordinates, then setting max_t and min_t to fClip and nClip.
 
+				For triangle intersection (further discussed in next question), we use Moller Trumbore to get the proper t value of the intersection,
+				then check its validity with max_t and min_t, then check it is contained in the triangle with the point-in-triangle test from lecture.
+				For sphere intersection, we use the ray-sphere intersection formula from lecture, giving us two possible intersection points.
+				We choose the smaller legitimate value of these two and find the normal vector
+				with the corresponding point in the ray at this time and using that to get the necessary unit vector to fill the intersection object.
 			<br />
 			<h3>2. Explain the triangle intersection algorithm you implemented in your own words.</h3>
-
+				We used Moller Trumbore to find the correct t for the intersection, then checked the corresponding point's validity,
+				then used the point-in-triangle test to verify that point was in the triangle. Moller Trumbore works by using Cramer's rule
+				on a specifically crafted matrix and vector of determinants, which provides a faster intersection algorithm than the first ray-plane intersection
+				algorithm discussed in lecture.
 			<br />
 			<h3>3. Show images with normal shading for a few small .dae files.</h3>
-
+				<img src="CBspheres.png" width="30%" />
+				<img src="cow.png" width="30%" />
+				<img src="gems.png" width="30%" />
 			<br />
 
 
@@ -33,12 +46,24 @@
 		</h2>
 		<p>
 			<h3>1. Walk through your BVH construction algorithm. Explain the heuristic you chose for picking the splitting point.</h3>
-
+			Our BVH construction algorithm begins by creating a bounding box that encompasses all of the primitives located within the range of the start and end iterators.
+			If there are less than or equal to the maximum number of primitives in a leaf, we create a node that encompasses the box
+			and assign the node’s start and end iterators to encompass the primitives. Otherwise, we get the average of the centroids
+			of each primitive’s respective box and split at the average point along the longest axis of the all-encompassing box.
+			Then, we partition the primitives into left and right child nodes depending on whether they are located at a coordinate
+			less than or greater than the average value, and recurse construct_bvh on the children.
 			<br />
 			<h3>2. Show images with normal shading for a few large .dae files that you can only render with BVH acceleration.</h3>
-
+			<img src="planck.png" width="30%" />
+			<img src="lucy.png" width="30%" />
+			<img src="dragon.png" width="30%" />
 			<br />
 			<h3>3. Compare rendering times on a few scenes with moderately complex geometries with and without BVH acceleration. Present your results in a one-paragraph analysis.</h3>
+			First, we examined the teapot which has 2464 primitives.  The teapot took 15.86 seconds without BVH acceleration
+			and took 0.14 seconds with BVH acceleration.  The cow has 5856 primitives, and took 43.36 seconds without BVH acceleration and
+			0.13 seconds with BVH acceleration.  Finally, the beetle has 7558 primitives, and took 50.54 seconds without BVH acceleration and
+			0.09 seconds with BVH acceleration.  All calculations were done on a Macbook Pro.  As we can see, there is an extreme speedup going from
+			non-BVH acceleration to BVH acceleration, which allows even more complex DAEs to be rendered in a reasonable amount of time.
 
 			<br />
 		</p>
