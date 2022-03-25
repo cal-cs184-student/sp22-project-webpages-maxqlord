@@ -75,13 +75,32 @@
 
 			<br />
 			<h3>2. Show some images rendered with both implementations of the direct lighting function.</h3>
-
+			(uniform hemisphere sampling on left, light sampling on right) <br />
+				<img src="CBbunny_H_64_32.png" width="40%" />
+				<img src="bunny_64_32.png" width="40%" />
+				<img src="CBspheres_H_64_32.png" width="40%" />
+				<img src="spheres_64_32.png" width="40%" />
+				<img src="dragon_H_64_32.png" width="40%" />
+				<img src="dragon_64_32.png" width="40%" />
+				<br />
+				The dragon file being black using hemisphere sampling is expected because it contains a point and directional light which have no geometry in the scene so hemisphere sampling can't render it.
 			<br />
 			<h3>3. Focus on one particular scene with at least one area light and compare the noise levels in soft shadows when rendering with 1, 4, 16, and 64 light rays (the -l flag) and with 1 sample per pixel (the -s flag) using light sampling, not uniform hemisphere sampling.</h3>
-
+				(Starting from 1 light ray)
+				<br />
+				<img src="spheres_1_1.png" width="40%" />
+				<img src="spheres_1_4.png" width="40%" />
+				<img src="spheres_1_16.png" width="40%" />
+				<img src="spheres_1_64.png" width="40%" />
+				<br />
+				The soft shadows get less noisy as we increase the number of light rays because it allows for more precision.
 			<br />
 			<h3>4. Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.</h3>
-
+				Uniform hemisphere sampling creates noisier images, as any solid faces are interspersed with black dots due to a lack of precision.
+				Lighting sampling creates crisp colors and a perfect gradient of color due to lighting on the faces of objects in a scene,
+				as opposed to the messy gradient in uniform hemisphere sampling.  Additionally, as we can see with the dragon,
+				there are some scenes that lighting sampling can render than uniform hemisphere sampling cannot, due to the point and directional light.
+				In the last section, we saw that we can easily decrease noise in lighting sampling by increasing the number of light rays.
 			<br />
 		</p>
 		<h2>
