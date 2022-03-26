@@ -110,25 +110,50 @@
 			<h3>
 				1. Walk through your implementation of the indirect lighting function.
 			</h3>
+			First, we find the one_bounce_radiance as the base ray for direct lighting. Then, we check if we should cut off the recursion by virtue of either russian roulette or maximum ray depth.
+			Next, we sample the bsdf function of our given intersection point by using the given w_out. Since we are drawing inverse rays,
+			we draw a new ray starting at the hit point and going out in the w_in direction while decrementing its depth by 1.
+			Finally, we check if our newly created ray intersects the bvh, and if so, we call our function recursively and weight the output by the sample bsdf, cos(w_in), and the inverse of the pdf,
+			then add that result to the running sum initialized with the direct lighting.
 
 			<br />
 			<h3>
 				2. Show some images rendered with global (direct and indirect) illumination. Use 1024 samples per pixel.
+				<br />
+				<img src="bunny_1024.png" width="40%" />
+				<img src="spheres_1024.png" width="40%" />
 			</h3>
 
 			<br />
 			<h3>
 				3. Pick one scene and compare rendered views first with only direct illumination, then only indirect illumination. Use 1024 samples per pixel.
 			</h3>
-
+				<br />
+				<img src="spheres_direct_1024.png" width="40%" />
+				<img src="spheres_indirect_1024.png" width="40%" />
 			<br />
 			<h3>
 				4. For CBbunny.dae, compare rendered views with max_ray_depth set to 0, 1, 2, 3, and 100 (the -m flag). Use 1024 samples per pixel.
 			</h3>
+				(0,1,2,3,100 in order)
+				<br />
+				<img src="bunny_m_0.png" width="30%" />
+				<img src="bunny_m_1.png" width="30%" />
+				<img src="bunny_m_2.png" width="30%" />
+				<img src="bunny_m_3.png" width="30%" />
+				<img src="bunny_m_100.png" width="30%" />
 
 			<br />
 			<h3>5. Pick one scene and compare rendered views with various sample-per-pixel rates, including at least 1, 2, 4, 8, 16, 64, and 1024. Use 4 light rays.</h3>
-
+				(1,2,4,8,16,64,1024 in order)
+				<br />
+				<img src="spheres_s_1.png" width="30%" />
+				<img src="spheres_s_2.png" width="30%" />
+				<img src="spheres_s_4.png" width="30%" />
+				<img src="spheres_s_8.png" width="30%" />
+				<img src="spheres_s_16.png" width="30%" />
+				<img src="spheres_s_64.png" width="30%" />
+				<img src="spheres_s_1024.png" width="30%" />
 			<br />
 		</p>
 		<h2>
