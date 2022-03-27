@@ -10,6 +10,18 @@
 		<p>
 			<h3>1. An overview of the project, including your approach to and implementation for each of the parts, as well as what problems you have encountered and how you solved them.</h3>
 
+			In this project, we implemented a rudimentary physical renderer by constructing a ray generator,
+			various primitive shape intersection tests, and a bounding volume hierarchy for object image files,
+			then used ray tracing techniques to implement different types of direct and indirect lighting on objects in the scene.
+			This included both direct illumination on an object, as well as global illumination over a scene.
+
+			The following parts break down implementation details into more specifics, but throughout the whole project
+			we mainly encountered minor syntactical issues with C++ such as different mechanisms for passing around pointers
+			that was our largest point of slowdown. In addition, properly handling all base cases was one of the most
+			logically difficult parts of the project overall—for example, handling cases where the BVH split such that
+			all primitives were relocated to only one of the created child nodes and the pipeline entered infinite recursion.
+			Additionally, several issues arose due to both partners having different build environments and operating systems,
+			which created some discrepancies in C++ functionality; moving forward, we will be doing more pair programming to avoid these issues.
 			<br />
 		</p>
 		<h2>
@@ -72,6 +84,14 @@
 		</h2>
 		<p>
 			<h3>1. Walk through both implementations of the direct lighting function.</h3>
+			For uniform hemisphere sampling, we sample rays incoming into the hemisphere surrounding hit_p, our point of interest,
+			then approximate integrating over the entire hemisphere by using a Monte Carlo estimator summation.
+			Then for num_samples rays, we follow their reverse direction from hit_p to see if they intersect any other light-emitting objects
+			—if they do, we add in the objects’ emission multiplied by their BSDF f value and hit angle to the total lighting, and average over num_samples.
+			For importance sampling, we iterate over each light in the scene. For each light, we sample num_samples instances
+			of emitted radiance and trace the ray between the sample and the hit point of interest; if the ray intersects
+			the hit point uninterrupted by other objects in its path, we continue as in hemisphere sampling by adding in
+			the emission to the total lighting and averaging at the end.
 
 			<br />
 			<h3>2. Show some images rendered with both implementations of the direct lighting function.</h3>
