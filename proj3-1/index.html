@@ -164,6 +164,12 @@
 			<h3>
 			1. Walk through your implementation of the adaptive sampling.
 			</h3>
+			First, we initialize the suggested s1 and s2 running totals.  Next, we proceed into our normal sampling loop for a pixel.
+			For each sample, we increment s1 and s2 based on the illuminance calculation, then if our loop index is a multiple of
+			samples per batch, we calculate the mean and variance of our samples so far using s1 and s2.  Then, we check if 1.96 * (std dev / sqrt(n))
+			is less than or equal to the mean times maxTolerance, where n is the number of samples seen so far.  If so, we save the number of actual samples we took before breaking,
+			and break the loop.  Next, we make sure to use the actual samples we took, not the max number of samples when calculating radiance average,
+			then also use that actual samples number when setting the corresponding value in sampleCountBuffer.
 
 			<br />
 			<h3>2. Pick one scene and render it with at least 2048 samples per pixel. Show a good sampling rate image with
