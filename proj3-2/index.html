@@ -2,6 +2,86 @@
 	<head>
 	</head>
 	<body>
-		Project 3-2 here
+
+		<h1>CS184 Project 3-2 - Max Lord and Eugenia Gavrilova</h1>
+		<h2>
+			Overview
+		</h2>
+		<p>
+			<h3>1. An overview of the project, including your approach to and implementation for each of the parts, as well as what problems you have encountered and how you solved them.</h3>
+
+			<br />
+		</p>
+
+		<h2>
+			Part 2
+		</h2>
+		<p>
+			<h3>1. Show a sequence of 4 images of scene CBdragon_microfacet_au.dae rendered with \alphaα set to 0.005, 0.05, 0.25 and 0.5.
+				The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5.
+				Describe the differences between different images.</h3>
+
+			<br />
+			<h3>2. Show two images of scene CBbunny_microfacet_cu.dae rendered using cosine hemisphere sampling (default) and your importance sampling.
+				The sampling rate should be fixed at 64 samples per pixel and 1 samples per light. The number of bounces should be at least 5.
+				Briefly discuss their difference.</h3>
+
+			<br />
+			<h3>3. Show at least one image with some other conductor material, replacing eta and k. Note that you should look up values for real data rather than modifying them arbitrarily.
+				Tell us what kind of material your parameters correspond to.</h3>
+
+			<br />
+		</p>
+
+		<h2>
+			Part 4
+		</h2>
+		<p>
+			<h3>
+				1. In a few sentences, explain the differences between a pinhole camera model and a thin-lens camera model.
+			</h3>
+				A pinhole camera is essentially a special case of a thin-lens camera with an aperture of 0.
+				As aperture size increases, the number of light rays hitting the scene increases, which blurs the returned 2d image.
+				The thin lens allows a ray not going through the center to bend, so rays may intersect with different parts of the scene
+				and cause more blur or focus in some parts depending on the focal distance and aperture.
+				The key to the difference is more rays playing a role in intersecting with the point in focus and surrounding objects,
+				and that focus can be adjusted with the focal distance and aperture settings.
+			<br />
+			<h3> 2. Show a "focus stack" where you focus at 4 visibly different depths through a scene.</h3>
+				Aperture: 0.5, Depth 4.5, 4.8, 5.0, 5.3
+				<br />
+				<img src="depth5Spheres45.png" width="40%" />
+				<img src="depth5Spheres48.png" width="40%" />
+				<img src="depth5Spheres50.png" width="40%" />
+				<img src="depth5Spheres53.png" width="40%" />
+
+			<br />
+
+			<h3>
+				3. Show a sequence of 4 pictures with visibly different aperture sizes, all focused at the same point in a scene.
+			</h3>
+				Depth: 4.5, Aperture 0.05, 0.1, 0.3, 0.5
+				<br />
+				<img src="depth05ASpheres45.png" width="40%" />
+				<img src="depth1ASpheres45.png" width="40%" />
+				<img src="depth3ASpheres45.png" width="40%" />
+				<img src="depth5ASpheres45.png" width="40%" />
+
+			<br />
+
+
+		</p>
+
+		<h2>
+			Collaboration
+		</h2>
+		We split up the project—one partner did part 2 and the other did part 4. We kept in contact regarding our progress
+		and used git branches so we didn't interfere with each other's work.
+		<h3>
+			Website Link
+		</h3>
+		<p>
+			<a href="https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/proj3-2/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/proj3-2/index.html</a>
+		</p>
 	</body>
 </html>
