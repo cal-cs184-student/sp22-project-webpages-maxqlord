@@ -9,11 +9,15 @@
 		</h2>
 		<p>
 			<h3>1. An overview of the project, including your approach to and implementation for each of the parts, as well as what problems you have encountered and how you solved them.</h3>
-				This project extended the initial ray tracing work we did in project 3-1. In task 2... .  In task 4, we extended our pinhole camera model to a thin lens which allowed us to experiment with depth of field.
+				This project extended the initial ray tracing work we did in project 3-1. In task 2, we implemented the microfacet BSDF by first implementing the BSDR with the given formula,
+				then the normal distribution function, then the fresnel term.  We implemented importance sampling
+				by using the two given pdfs and the result of the inversion method for integration. Finally, we use the given formulas to
+				derive p_w(h) and then the pdf of sampling w_in with respect to solid angle. In task 4, we extended our pinhole camera model to a thin lens which allowed us to experiment with depth of field.
 				Using the camera-space coordinates of a point on the sensor found in project 3-1, we scaled those coordinates by the focal distance to
 				intersect with the plane of focus, then found the direction of a ray towards the focus, as well as the origin of the new ray, then converted all coordinates back into world coordinates from camera space.
 				In the pictures shown, we used the spheres to show how as we hold aperture steady and change focal distance, different parts of the scene come into focus.
 				If we hold distance steady and change aperture, one part of the scene is always in focus but the rest becomes blurry.
+				Most problems were due to small mistakes when translating the spec requirements into code, which we found by noting that the output images were incorrect and scanning through the code for mistakes.
 
 			<br />
 		</p>
@@ -22,18 +26,38 @@
 			Part 2
 		</h2>
 		<p>
-			<h3>1. Show a sequence of 4 images of scene CBdragon_microfacet_au.dae rendered with \alphaα set to 0.005, 0.05, 0.25 and 0.5.
+			<h3>1. Show a sequence of 4 images of scene CBdragon_microfacet_au.dae rendered with alpha set to 0.005, 0.05, 0.25 and 0.5.
 				The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5.
 				Describe the differences between different images.</h3>
+
+				In these images, when alpha gets smaller, the surfaces of the dragon become glossier and seemingly more reflective. When α gets larger, the surfaces appear more matte.
+				<br />
+				(Starting from .005)
+				<br />
+				<img src="q1-dragon-alpha-0-005.png" width="40%" />
+				<img src="q1-dragon-alpha-0-05.png" width="40%" />
+				<img src="q1-dragon-alpha-0-25.png" width="40%" />
+				<img src="q1-dragon-alpha-0-5.png" width="40%" />
 
 			<br />
 			<h3>2. Show two images of scene CBbunny_microfacet_cu.dae rendered using cosine hemisphere sampling (default) and your importance sampling.
 				The sampling rate should be fixed at 64 samples per pixel and 1 samples per light. The number of bounces should be at least 5.
 				Briefly discuss their difference.</h3>
 
+				 In these images, the importance sampled render removes much of the noise that remains in the cosine hemisphere render by sampling according to the shape of the Beckmann NDF.
+				<br />
+				(hemisphere, importance)
+				<br />
+				<img src="q2-bunny-hemisphere-sampling.png" width="40%" />
+				<img src="q2-bunny-importance-sampling.png" width="40%" />
+
 			<br />
 			<h3>3. Show at least one image with some other conductor material, replacing eta and k. Note that you should look up values for real data rather than modifying them arbitrarily.
 				Tell us what kind of material your parameters correspond to.</h3>
+
+				This bunny was rendered using parameter values for silver.
+				<br />
+				<img src="q3-bunny-silver.png" width="40%" />
 
 			<br />
 		</p>
@@ -73,7 +97,6 @@
 				<img src="depth5ASpheres45.png" width="40%" />
 
 			<br />
-
 
 		</p>
 
