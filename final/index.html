@@ -1,0 +1,108 @@
+<html>
+	<head>
+	</head>
+	<body>
+
+		<h1>CS184 Final Project Proposal - Max Lord, Eugenia Gavrilova, Max Litster, Aidan Meyer</h1>
+		<h2>
+			Realistic Mesh Cuts
+		</h2>
+		<p>
+			<h3>Summary</h3>
+				We will implement the ability to cut a mesh in two and reassemble them as two separate meshes.
+				Additionally, the characteristics of the cut will be set by a user-inputted slider value.  Finally, as an ambitious goal, we hope to animate this mesh cut.
+			<br />
+		</p>
+
+		<h2>
+			Problem Description
+		</h2>
+		<p>
+			<h3>1. Describe the problem that you are trying to solve, why it is important, where it is challenging. Give us a general idea on how you are going to solve it.</h3>
+				 Our project seeks to simulate cutting different materials. Specifically, given a mesh, we plan to implement a slider determining characteristics of the cut,
+				 such as a degree of "stickiness", modeled as an exponential increase in likeliness to stick together as the point on the mesh gets farther from the cut itself.
+				 If we reach our "ambitious" goal, we will also animate the effects of cutting the mesh.
+				 If we do not reach this goal, we can still extend our ‘reasonable’ goal by adding other types of sliders such as whether the cut completely separates the two materials.
+				<br />
+				This problem is important because animating realistic physical simulations requires realistic rendering of how materials split apart.
+				<br />
+				It is challenging because in real life, materials do not always separate cleanly: they often cling together unevenly with varying degrees of resistance or stickiness.
+				Additionally, the animation of the mesh cut may be challenging, as well as deciding how to rebuild a side of a mesh that has its triangles removed.
+				<br />
+				To solve this problem, we plan to incorporate the physical properties of splitting a material (i.e., incorporating any simulation equations) and strategies for rebuilding meshes when removing some of its triangles.
+				To model "stickiness", we plan to use weighted randomness where a given triangle will have some probability (determined by a slider) of sticking to the other side of the mesh when a cut occurs, and if it does,
+				each of its neighboring triangles will have some probability of sticking to that triangle and sticking to the other half of the separated mesh.
+			<br />
+
+		</p>
+
+		<h2>
+			Goals and Deliverables
+		</h2>
+		<p>
+			<h3>
+				1. Baseline Demo/Images/Goals
+			</h3>
+				1. An augmentation of the mesh project with a "stickiness slider" to determine the stickiness of a mesh after it has been cut.
+				<br />
+				2. An interactive demo of the slider and cutting the mesh at different angles.
+				<br />
+				3. Screenshots of mesh cuts resulting in varying levels of stickiness.
+
+			<br />
+			<h3> 2. Measuring Quality/Performance </h3>
+				We will measure quality by ensuring that, in general, it is more common for triangles on the left edge of the original cut to stick to the newly created right mesh when the stickiness slider is high,
+				although this may not be the case for specific instances due to randomness.
+			<br />
+			<h3> 3. Questions to Answer </h3>
+				We want to answer whether it is possible to cut a mesh in such a way that we can adjust the characteristics of the cut to be ‘imperfect’ and look more realistic for certain materials instead of just a perfect cut.
+			<br />
+			<h3> 4. More Ambitious Goals </h3>
+				We hope to deliver realistic animations of cutting the mesh, but if this is too ambitious, we will stick with just screenshots/demo of the results without animation as previously discussed.
+			<br />
+		</p>
+
+		<h2>
+			Schedule
+		</h2>
+		<p>
+			<h3>
+				Week 1
+			</h3>
+				Finish an unanimated perfect mesh cut with a pre-set line of division.
+			<br />
+			<h3>
+				Week 2
+			<br />
+				Finish a mesh cut with a stickiness slider included.
+			<h3>
+				Week 3
+			</h3>
+				Finish work with an unanimated mesh cut including stickiness slider and allowing the user to select the line of division.
+			<br />
+			<h3>
+				Week 4
+			<br />
+				Finish the animation of a mesh cut.
+
+		</p>
+
+		<h2>
+			Resources
+		</h2>
+		<p>
+			We will be using C++ and the CGL library to implement our project within the existing GUI for modifying meshes from earlier projects.
+			<br />
+			We may use guidance from this paper on mesh cut animation https://www.sciencedirect.com/science/article/abs/pii/S0010448510001995 and
+			this paper on mesh cuts https://graphicsinterface.org/wp-content/uploads/gi1998-13.pdf but we don’t plan to exactly replicate their findings.
+
+		</p>
+
+		<h3>
+			Website Link
+		</h3>
+		<p>
+			<a href="https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/final/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-maxqlord/final/index.html</a>
+		</p>
+	</body>
+</html>
