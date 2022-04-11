@@ -23,12 +23,12 @@
 				 such as a degree of "stickiness", modeled as an exponential increase in likeliness to stick together as the point on the mesh gets farther from the cut itself.
 				 If we reach our "ambitious" goal, we will also animate the effects of cutting the mesh.
 				 If we do not reach this goal, we can still extend our ‘reasonable’ goal by adding other types of sliders such as whether the cut completely separates the two materials.
-				<br />
+				<br /> <br />
 				This problem is important because animating realistic physical simulations requires realistic rendering of how materials split apart.
-				<br />
+				<br /> <br />
 				It is challenging because in real life, materials do not always separate cleanly: they often cling together unevenly with varying degrees of resistance or stickiness.
 				Additionally, the animation of the mesh cut may be challenging, as well as deciding how to rebuild a side of a mesh that has its triangles removed.
-				<br />
+				<br /> <br />
 				To solve this problem, we plan to incorporate the physical properties of splitting a material (i.e., incorporating any simulation equations) and strategies for rebuilding meshes when removing some of its triangles.
 				To model "stickiness", we plan to use weighted randomness where a given triangle will have some probability (determined by a slider) of sticking to the other side of the mesh when a cut occurs, and if it does,
 				each of its neighboring triangles will have some probability of sticking to that triangle and sticking to the other half of the separated mesh.
@@ -73,8 +73,9 @@
 			<br />
 			<h3>
 				Week 2
-			<br />
+			</h3>
 				Finish a mesh cut with a stickiness slider included.
+			<br />
 			<h3>
 				Week 3
 			</h3>
@@ -82,7 +83,7 @@
 			<br />
 			<h3>
 				Week 4
-			<br />
+			</h3>
 				Finish the animation of a mesh cut.
 
 		</p>
@@ -93,8 +94,8 @@
 		<p>
 			We will be using C++ and the CGL library to implement our project within the existing GUI for modifying meshes from earlier projects.
 			<br />
-			We may use guidance from this paper on mesh cut animation https://www.sciencedirect.com/science/article/abs/pii/S0010448510001995 and
-			this paper on mesh cuts https://graphicsinterface.org/wp-content/uploads/gi1998-13.pdf but we don’t plan to exactly replicate their findings.
+			We may use guidance from this paper on mesh cut animation <a href="https://www.sciencedirect.com/science/article/abs/pii/S0010448510001995">https://www.sciencedirect.com/science/article/abs/pii/S0010448510001995</a>  and
+			this paper on mesh cuts <a href="https://graphicsinterface.org/wp-content/uploads/gi1998-13.pdf">https://graphicsinterface.org/wp-content/uploads/gi1998-13.pdf</a>  but we don’t plan to exactly replicate their findings.
 
 		</p>
 
