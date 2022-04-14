@@ -9,7 +9,12 @@
 		</h2>
 		<p>
 			<h3>1. An overview of the project, your approach to and implementation for each of the parts, and what problems you encountered and how you solved them.</h3>
-
+				In part 1, we set up the point masses and springs that created a wireframe for our cloth as well as defined the different spring constraints.
+				In part 2, we set up the physics of the wireframe by considering forces on point masses and spring constraints.
+				In part 3, we started to consider collisions between the cloth and other objects, including both a plane and a sphere, then extended this in part 4 by allowing the cloth to collide with itself and processing that correctly.
+				Finally, in part 5, we applied shaders to the cloth so we could control its lighting, texture, and material effects during the simulation.
+				Most problems we encountered were due to issues with either processing information or formulas in the wrong order,
+				failing to normalize vectors, or using the incorrect variables for certain values in a given formula, all of which we fixed by carefully reviewing lecture material as well as Piazza.
 			<br />
 		</p>
 
@@ -77,10 +82,16 @@
 				1. Show us screenshots of your shaded cloth from scene/sphere.json in its final resting state on the sphere using the default ks = 5000 as well as with ks = 500 and ks = 50000.
 				Describe the differences in the results.
 			</h3>
-
+				(500, 5000, 50k)
+				<br />
+				<img src="ks_500.png" width="30%" />
+				<img src="ks_5000.png" width="30%" />
+				<img src="ks_50k.png" width="30%" />
+				<br />
+				With a higher spring constant value, the cloth becomes stiffer and thus its final resting state is a looser wrap around the sphere, as opposed to a low ks value, where the cloth wraps the sphere more tightly.
 			<br />
 			<h3> 2. Show us a screenshot of your shaded cloth lying peacefully at rest on the plane. If you haven't by now, feel free to express your colorful creativity with the cloth! (You will need to complete the shaders portion first to show custom colors.) </h3>
-
+				<img src="cloth_plane.png" width="40%" />
 			<br />
 
 		</p>
@@ -92,12 +103,19 @@
 			<h3>
 				1. Show us at least 3 screenshots that document how your cloth falls and folds on itself, starting with an early, initial self-collision and ending with the cloth at a more restful state (even if it is still slightly bouncy on the ground).
 			</h3>
-
+			<img src="self_fold1.png" width="30%" />
+			<img src="self_fold2.png" width="30%" />
+			<img src="self_fold3.png" width="30%" />
 			<br />
 			<h3> 2. Vary the density as well as ks and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.</h3>
-
-
+			<img src="self_change1.png" width="40%" />
+			<img src="self_change2.png" width="40%" />
+			<img src="self_change3.png" width="40%" />
+			<img src="self_change4.png" width="40%" />
 			<br />
+			When holding the other variable value constant, a lower density and higher spring constant value both correspond to less self-collisions
+			and thus what appears to be less folds in on itself. On the other hand, a higher density and lower spring constant
+			value correspond to more self-collisions on the surface of the cloth and consequently tighter, more frequent folds in on itself.
 
 		</p>
 
@@ -108,26 +126,50 @@
 			<h3>
 				1. Explain in your own words what is a shader program and how vertex and fragment shaders work together to create lighting and material effects.
 			</h3>
+			Shaders take in a single pixel or fragment and do some operation on it to determine what the color of the surface
+			at that pixel or fragment should be based on a combination of lighting, base color, and material effects.
+			That operation can also include a lookup of some preset texture that is mapped onto the pixel/fragment.
+			Vertex shaders focus on modifying the geometry of the material and set up final values for vertex positions, normals, and tangents for use in fragment shaders.
+			Fragment shaders take in the geometry determined by vertex shaders and use them in lighting/material effect formulas to determine and output the actual color at that fragment.
 
 			<br />
 			<h3> 2. Explain the Blinn-Phong shading model in your own words. Show a screenshot of your Blinn-Phong shader outputting only the ambient component,
 				a screen shot only outputting the diffuse component, a screen shot only outputting the specular component, and one using the entire Blinn-Phong model.</h3>
 
+				The concept of Blinn-Phong shading is to add multiple forms of shading (ambient, diffuse, and specular) and combine them together to achieve a more realistic shading model.
+				The specular component is new at this stage, compared to diffuse and ambient lighting which have featured in previously discussed shading/lighting models. Specular works by
+				brightening the area near the area where a mirror reflects light, which gives the material a more photorealistic appearance because some materials have a harsh shine/reflection when directly hit by light.
+				<br />
+				(Ambient, Diffuse, Specular, Full)
+				<br />
+				<img src="ambient_phong.png" width="40%" />
+				<img src="diffuse_phong.png" width="40%" />
+				<img src="specular_phong.png" width="40%" />
+				<img src="full_phong.png" width="40%" />
 			<br />
 			<h3> 3. Show a screenshot of your texture mapping shader using your own custom texture by modifying the textures in /textures/.</h3>
-
+				<img src="custom_texture.png" width="40%" />
 			<br />
 			<h3> 4. Show a screenshot of bump mapping on the cloth and on the sphere. Show a screenshot of displacement mapping on the sphere.
 				Use the same texture for both renders. You can either provide your own texture or use one of the ones in the textures directory,
 				BUT choose one that's not the default texture_2.png. Compare the two approaches and resulting renders in your own words.
 				Compare how your the two shaders react to the sphere by changing the sphere mesh's coarseness by using -o 16 -a 16 and then -o 128 -a 128. </h3>
 
+				Between bump and displacement mapping, we can see that the "folds" that occur in bump mapping as well as illusions of texture changes become
+				actual displacements in vertex position in displacement mapping. Displacement mapping considers the texture as a function on position, not just appearance.
+				Regarding the coarseness change, the mapping for 16 shows fairly smooth folds in both bump and displacement,
+				but with 128 the folds become more aggressive and much sharper changes in position, so there are fewer flat areas.
+				<br /> <br />
+				(Bump 16, Displacement 16, Bump 128, Displacement 128)
+				<br />
+				<img src="bump_16.png" width="40%" />
+				<img src="displacement_16.png" width="40%" />
+				<img src="bump_128.png" width="40%" />
+				<img src="displacement_128.png" width="40%" />
 			<br />
 			<h3> 5. Show a screenshot of your mirror shader on the cloth and on the sphere.</h3>
-
-			<br />
-			<h3> 6. Explain what you did in your custom shader, if you made one.</h3>
-
+			<img src="mirror_both.png" width="40%" />
+			<img src="mirror_rest.png" width="40%" />
 			<br />
 
 		</p>
