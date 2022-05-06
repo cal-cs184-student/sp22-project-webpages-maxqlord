@@ -42,6 +42,8 @@
 			To add the stickiness functionality, we generated a small random value between 0.5 and -0.5 and scaled this value in accordance with the stickiness coefficent the user can edit with the 'C' and 'V' keys.
 			Then, after determining the plane to split on, we added this scaled random value to each vertex's position, so some vertices close to the plane on the left side of the mesh would randomly be pushed to the right side of the mesh for the split.
 			Additionally, we have a coefficient in the code that determines how far our vertices move apart after being split, which is hard coded.
+			<br /> <br />
+			After do some research on the algorithm for splitting a mesh using a plane we came across a unity implementation. This implementation is a similar algorithm to the one that we incorporated into the proj-2 except it is using a completely different mesh representation (info can be seen in linked video). Using this implementation in Unity, I wanted to explore some of the applications that this could be used for. After taking the VR decal this semester I had the knowledge needed to configure this into a VR interactable slicer. After some reconfiguring, creating of 3D assets, and some nauseating VR debugging, I had a fully functional mesh slicing demo in VR. This was an exciting way that such an algorithm can be applied.
 
 			<br />
 			<h3>2. A description of problems encountered and how you tackled them. </h3>
